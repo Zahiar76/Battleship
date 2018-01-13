@@ -154,6 +154,7 @@ public class PutShipsController implements Initializable {
     @FXML
     private void goToLevel(ActionEvent event) throws IOException{
         manager.goToLevel();
+        manager.setPlayer1(player);
     }
 //    
     @FXML

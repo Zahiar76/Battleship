@@ -101,7 +101,34 @@ public class Map{
             }
         }        
         //Beschriftung der Karte wird erstellt. ABDC und 1234 
+        vbox.getChildren().clear();
+        hbox.getChildren().clear();
         setNumbers(mapGui,vbox,hbox);    
+    }
+    
+    //Map dynamisch erstellt, fürs Spielen
+    
+        public void setMap(GridPane mapGui, VBox vbox, HBox hbox){
+       ActionEvent event = new ActionEvent();
+       int position = 0;
+       mapGui.getColumnConstraints().clear(); //Alle Spalten werden gelöscht
+       mapGui.getRowConstraints().clear();    //Alle Zeilen werden gelöscht
+       
+       
+        //Felder werden in eine Karte hinzugefügt 
+        for(Field[] yAxis: map){
+            for(Field xAxis : yAxis){
+              //Button wird mit entsprechenden Informationen erstellt
+              xAxis = new Field(mapGui,groesse, position);
+              position ++;
+              
+             //Methode         
+             mapGui.add(map[xAxis.getY()][xAxis.getX()].getBtn(),xAxis.getX(),xAxis.getY()); //Buttons werden in ein GridLayout hinzugefügt und somit graphisch dargestellt
+             
+            }
+        }        
+        //Beschriftung der Karte wird erstellt. ABDC und 1234 
+        setNumbers(mapGui,vbox,hbox);   
     }
     
     private void setNumbers(GridPane mapGui,VBox vbox, HBox hbox){
@@ -113,6 +140,7 @@ public class Map{
             vLabel.setAlignment(Pos.CENTER); //Text zentriert
             vLabel.setId("VHLabel");
             vbox.getChildren().add(vLabel); //Label Grafisch dargestellt
+            System.out.println("Is added "+ v);
             
             //Horizontal
             Label hLabel = new Label(Character.toString((char) ((char) 64 + v))); //ASCI CODE: A,B,C,D,E
