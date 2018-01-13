@@ -23,6 +23,7 @@ public class Field {
     private boolean isNeighbour = false;
     private boolean hitted = false;
     private boolean destroyed = false;
+    private boolean checked = false;
 
 
     /*
@@ -65,6 +66,7 @@ public class Field {
         if(isNeighbour && !ship){
             btn.setStyle("-fx-background-color:green;");
         }else if(!isNeighbour && !ship){
+      
           btn.setStyle("");  
         }
     }
@@ -75,15 +77,15 @@ public class Field {
 
     public void setShip(boolean ship, int whichShip) {
         if(whichShip == 4){
-            btn.setStyle("-fx-background-color:#DD1B1B"); 
+            btn.setStyle("-fx-background-color:#DD1B1B;"); 
         }else if(whichShip == 3){
-            btn.setStyle("-fx-background-color:#DD1B1B");
+            btn.setStyle("-fx-background-color:#DD1B1B;");
         }else if(whichShip == 2){
-            btn.setStyle("-fx-background-color:#DD1B1B");
+            btn.setStyle("-fx-background-color:#DD1B1B;");
         }else if(whichShip == 1){
-            btn.setStyle("-fx-background-color:#DD1B1B");
+            btn.setStyle("-fx-background-color:#DD1B1B;");
         }else if(whichShip == 0){
-             btn.setStyle("-fx-background-color:");
+             btn.setStyle("-fx-background-color:;");
              //setDestroyed(true);
         }
         this.ship = ship;
@@ -91,14 +93,20 @@ public class Field {
     }
     
     public void hideShip(){
-        btn.setStyle("-fx-background-color:");
+        btn.setStyle("-fx-background-color:;");
     }
     public boolean getHitted() {
         return hitted;
     }
 
     public void setHitted(boolean hitted) {
-        this.hitted = hitted;
+        this.hitted = hitted; 
+        if(hitted){
+            btn.setStyle("-fx-background-color:#2B2B2B;");
+        }else{
+            btn.setStyle("-fx-background-color:#000000;");
+            setChecked(true);
+        }
     }
 
     public Button getBtn() {
@@ -132,6 +140,14 @@ public class Field {
     public void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
         btn.setStyle("-fx-background-color:#14d195");
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
     
 

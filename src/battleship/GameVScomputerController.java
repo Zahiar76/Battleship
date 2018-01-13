@@ -5,13 +5,16 @@
  */
 package battleship;
 
+import java.awt.event.ActionListener;
 import java.net.URL;
+import java.util.EventListener;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,6 +28,7 @@ public class GameVScomputerController implements Initializable {
     Battleship manager;
     Player player = new Player();
     Player computer = new Player();
+
     
     @FXML
     GridPane opponentMap = new GridPane();
@@ -58,8 +62,20 @@ public class GameVScomputerController implements Initializable {
        
        computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        computer.getMap().setShipsComputer(computer);
-    
        
+//       opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
+//         if(e.isPrimaryButtonDown()){ 
+//          computer.findDestroyedShip();
+//         }
+//         });
+
+       
+    }
+    
+    @FXML
+    private void showDestroyedShips(ActionEvent event){
+        manager.getPlayer1().findDestroyedShip();
+        computer.findDestroyedShip();
     }
     @FXML
     public void create(ActionEvent event){
@@ -69,6 +85,7 @@ public class GameVScomputerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
     }   
         
     public void setMainApp(Battleship manager){

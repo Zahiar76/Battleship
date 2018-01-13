@@ -174,7 +174,7 @@ public class Map{
                      map[y.get(randomY)][x.get(randomX)].hideShip();
                  }      
          }   
- 
+          setNewMethod(player);
      }
      
      public void addToArray(ArrayList y, ArrayList x){
@@ -241,7 +241,6 @@ public class Map{
                             index[whichShip-1] ++;
                            // toSetLabels[whichShip -1].setText(Integer.toString(index[whichShip-1]));
                             howManyShipsToSet(whichShip,0,toSetLabels);
-                            player.findDestroyedShip();
                         }
                        
                     }
@@ -264,7 +263,6 @@ public class Map{
               
                  if(allShipsPlayer.get(whichShip-1)[index[whichShip-1]][whichShip] != whichShip){ //Falls  weniger Boxen eingesetzt wurden, als die entsprechende Grösse des Schiffes
                      if(check(y,x,index[whichShip-1],whichShip,player) == true){ //Falls man auf dem Feld ein schiff einsetzen kann
-                        setMethodAttack(player, map[y][x]);
                         ////Position des Schiffes wird gespeichert
                         player.addToArray(whichShip, lokalisation);
                         allShipsPlayer.get(whichShip-1)[index[whichShip-1]][whichShip] ++; 
@@ -462,18 +460,30 @@ public class Map{
         }
  
     }
+    //Set Method 
+    public void setNewMethod(Player player){
+         for(Field[] yAxis: map){
+            for(Field xAxis : yAxis){
+                setMethodAttack(player, xAxis);
+            }
+         }
+        
+    }
     
     //Methode zum Attacken
     public void attack(MouseEvent event, Player player){
        int y = Integer.parseInt(event.getSource().toString().substring(10, 11)); //Position auf der Y-Achse
        int x = Integer.parseInt(event.getSource().toString().substring(11, 12)); //Position auf der X-Achse
        Computer computer = new Computer();
-       
+  
        if(player.getMap().map[y][x].isShip() && !player.getMap().map[y][x].getHitted()){
-            map[y][x].showHitted();
             map[y][x].setHitted(true);
+            player.findDestroyedShip();
+            
+       }else if(!player.getMap().map[y][x].getHitted()&&!player.getMap().map[y][x].isChecked()){
+           map[y][x].setHitted(false);
        }
-       //computer.findShip(50, player);
+       
     }
     
     //Erstellt einen neuen Button
