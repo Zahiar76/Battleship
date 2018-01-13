@@ -1,0 +1,38 @@
+.button{
+    
+}
+#backgroundPutShips{
+    -fx-background-image: url("../Image/putShip.bmp");
+    -fx-background-size: cover;
+}
+
+#VHLabel{
+    -fx-text-fill: white;
+}
+
+.Field{
+   -fx-background-color: white;
+   -fx-padding: 5px 5px 5px 5px;
+   -fx-border-color:  #2B2B2B;
+}
+
+.putShipsBefore{
+   -fx-background-color: white;
+   -fx-text-inner-color: black;
+}
+
+.putShipsAfter{
+   -fx-padding: 6px 6px 6px 6px;
+   -fx-border-color:  #EAE581;
+   -fx-background-color: #EAE581;
+   -fx-text-fill: #2B2B2B;
+   -fx-font-weight: bold;
+}
+
+.button:hover{
+    
+}
+
+.button:active{
+
+}
