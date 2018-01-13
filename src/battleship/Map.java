@@ -241,6 +241,7 @@ public class Map{
                             index[whichShip-1] ++;
                            // toSetLabels[whichShip -1].setText(Integer.toString(index[whichShip-1]));
                             howManyShipsToSet(whichShip,0,toSetLabels);
+                            player.findDestroyedShip();
                         }
                        
                     }
@@ -472,7 +473,7 @@ public class Map{
             map[y][x].showHitted();
             map[y][x].setHitted(true);
        }
-       computer.findShip(50, player);
+       //computer.findShip(50, player);
     }
     
     //Erstellt einen neuen Button

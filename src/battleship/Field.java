@@ -22,6 +22,7 @@ public class Field {
     private int onTheEdge = 0;         //1 = oben 2 = rechts 3 = unten 4 = links 12 = oben rechts  14 = oben links 32 = unten rechts 34 = links
     private boolean isNeighbour = false;
     private boolean hitted = false;
+    private boolean destroyed = false;
 
 
     /*
@@ -83,6 +84,7 @@ public class Field {
             btn.setStyle("-fx-background-color:#DD1B1B");
         }else if(whichShip == 0){
              btn.setStyle("-fx-background-color:");
+             //setDestroyed(true);
         }
         this.ship = ship;
         
@@ -121,6 +123,15 @@ public class Field {
 
     public void setIDShip(int shipID) {
         this.shipID = shipID;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+        btn.setStyle("-fx-background-color:#14d195");
     }
     
 

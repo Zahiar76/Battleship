@@ -166,7 +166,6 @@ public class PutShipsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         int ready = 0;
         addListener();
-        
         if(toSetLabel4.getText().equals("0")
          &&toSetLabel3.getText().equals("0")
          &&toSetLabel2.getText().equals("0")

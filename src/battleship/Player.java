@@ -7,6 +7,7 @@ package battleship;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -292,7 +293,95 @@ public class Player {
     public void setShipsToPut(){
         
     }
-       
+    
+    //private ArrayList<ArrayList<ArrayList<String>>> shipsPosition2 = new ArrayList<ArrayList<ArrayList<String>>>(){{
+        
+    //}
+    public void findDestroyedShip(){
+        String yx = "";
+        int y;
+        int x;
+
+
+        
+        
+        //Ship 1
+        for(int index = 0; index < 3; index++){                 
+            for(ArrayList a : shipsPosition2.get(index)){
+                yx = a.toString();
+                yx = yx.replaceAll("[^-?0-9]+", ""); 
+               
+                if(index == 1 && yx.length() == 4){
+                    setDestroyedField(yx);
+                }
+                if(index == 2 && yx.length() == 6){
+                    setDestroyedField(yx);
+                }
+                if(index == 3 && yx.length() == 8){
+                    setDestroyedField(yx);
+                }
+                if(index == 3){
+                    System.out.println(yx);
+                }
+//                for(Object b : a){
+//                    if(index == 1){
+//                        
+//                    }
+//                   // yx = b.toString();
+//                    //y = Integer.getInteger(yx.substring(0,1));
+//                    //x = Integer.getInteger(yx.substring(1,2));
+//                    //System.out.println("Size = "+yx.size());
+////                    
+////                    getMap().map[y][x];
+//                    //if(3 == 3){
+//                       // System.out.println("Size = " + shipsPosition2.get(3).size());
+//                    //}
+//                        
+//                    //System.out.println("Y="+y+" X="+x);
+//                }
+            }
+        }
+    }  
+    
+    public void setDestroyedField(String yx){
+        int y,x;
+        int size = yx.length();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        int zero = -1;
+        int one = 0;
+
+        for(int index =0; index < size; index ++){
+            zero ++;
+            one ++;
+            list.add(Integer.parseInt(yx.substring(zero,one))); 
+        }
+
+        int number = 0;
+        System.out.println(list);
+        for(int index =0; index < size/2; index ++){
+            System.out.println("number "+ number );
+            System.out.println(list.get(number)+" "+list.get(number));
+          getMap().map[list.get(number)][list.get(number+1)].setDestroyed(true);  
+          number = number+2;
+        }
+        
+//        if(size == 1){
+//            getMap().map[list.get(0)][list.get(1)].setDestroyed(true);
+//            getMap().map[list.get(1)][list.get(2)].setDestroyed(true);
+//        }
+//        if(size == 2){
+//            getMap().map[list.get(0)][list.get(1)].setDestroyed(true);
+//            getMap().map[list.get(1)][list.get(2)].setDestroyed(true);
+//            getMap().map[list.get(2)][list.get(3)].setDestroyed(true);
+//        }
+//        if(size == 3){
+//            getMap().map[list.get(0)][list.get(1)].setDestroyed(true);
+//            getMap().map[list.get(1)][list.get(2)].setDestroyed(true);
+//            getMap().map[list.get(2)][list.get(3)].setDestroyed(true);
+//            getMap().map[list.get(3)][list.get(4)].setDestroyed(true);
+//        }      
+    }
+    
        
        
    

@@ -16,16 +16,9 @@ public class Computer {
     int probabilityToHit = 0;
     boolean probability;
     
-    public void findShip(int probabilityToHit, Player player){
-        if(tryToHit(probabilityToHit) == true){
-            for(Field[] yAxis: player.getMap().map){
-                for(Field xAxis : yAxis){
-                    if(xAxis.isShip()){
-                        probabilityToHit++;
-                        System.out.println(probabilityToHit);
-                    }
-                }
-            }
+    public void attack(int probabilityToHit, Player player){
+        if(tryToHit(probabilityToHit)){
+            
         }
     }
     
@@ -35,4 +28,22 @@ public class Computer {
         
         return probability;
     }
+    
+    private void findNotDestroyedShip(){
+        
+    }
+    
+//    private boolean canIShoot(Player player){
+//            if(tryToHit(probabilityToHit) == true){
+//            for(Field[] yAxis: player.getMap().map){
+//                for(Field xAxis : yAxis){
+//                    if(xAxis.isShip()){
+//                        probabilityToHit++;
+//                        System.out.println(probabilityToHit);
+//                    }
+//                }
+//            }
+//        }
+//       return      
+//    }
 }
