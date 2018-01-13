@@ -101,14 +101,10 @@ public class Map{
             }
         }        
         //Beschriftung der Karte wird erstellt. ABDC und 1234 
-        vbox.getChildren().clear();
-        hbox.getChildren().clear();
         setNumbers(mapGui,vbox,hbox);    
     }
-    
-    //Map dynamisch erstellt, fürs Spielen
-    
-        public void setMap(GridPane mapGui, VBox vbox, HBox hbox){
+    //Map wird für ein Spiel eingesetzt 
+    public void setMap(GridPane mapGui, VBox vbox, HBox hbox){
        ActionEvent event = new ActionEvent();
        int position = 0;
        mapGui.getColumnConstraints().clear(); //Alle Spalten werden gelöscht
@@ -128,8 +124,79 @@ public class Map{
             }
         }        
         //Beschriftung der Karte wird erstellt. ABDC und 1234 
+        vbox.getChildren().clear();
+        hbox.getChildren().clear();
         setNumbers(mapGui,vbox,hbox);   
     }
+    
+     //For Computer
+     public void createMap(GridPane mapGui,Button[] putShips ,Label[] toSetLabels,Player player){
+         ActionEvent event = new ActionEvent();
+         int position = 0;
+         mapGui.getColumnConstraints().clear(); //Alle Spalten werden gelöscht
+         mapGui.getRowConstraints().clear();    //Alle Zeilen werden gelöscht
+ 
+         //Felder werden in eine Karte hinzugefügt 
+         for(Field[] yAxis: map){
+             for(Field xAxis : yAxis){
+               //Button wird mit entsprechenden Informationen erstellt
+               xAxis = new Field(mapGui,groesse, position);
+               position ++;
+               //Felder bekommen automatisch eine Methode 
+               setMethod(player, xAxis);
+              map[xAxis.getY()][xAxis.getX()] = xAxis; //Zum Map zuweisen
+              mapGui.add(map[xAxis.getY()][xAxis.getX()].getBtn(),xAxis.getX(),xAxis.getY()); //Buttons werden in ein GridLayout hinzugefügt und somit graphisch dargestellt 
+             }
+         }        
+   
+     }
+     
+     //CREATING MAP FOR COMP
+     public void setShipsComputer(Player player){
+         ArrayList<Integer> x = new ArrayList();
+         ArrayList<Integer> y = new ArrayList();
+         addToArray(y, x);
+         int randomX = (int) (Math.random() * 10);// Random
+         int randomY = (int) (Math.random() * 10);// Random
+         boolean done = false; //Map is created
+         int count = 0;
+         
+      
+         while(count != 20){
+             
+                randomX = (int) (Math.random() * 10);// Random
+                randomY = (int) (Math.random() * 10);// Random
+                   
+                changeWhichShip(count);
+
+              if(putShip(player,y.get(randomY),x.get(randomX)) == true){
+                     count ++;  
+                     map[y.get(randomY)][x.get(randomX)].hideShip();
+                 }      
+         }   
+ 
+     }
+     
+     public void addToArray(ArrayList y, ArrayList x){
+         for(int index = 0; index < 10; index ++){
+             y.add(index);
+             x.add(index);
+         }
+    }
+     
+    public void changeWhichShip(int count){
+           if(count < 4){
+               whichShip = 4; //4
+            }else if(count < 10){
+                whichShip = 3; //3
+            }else if(count < 16){
+                whichShip = 2; //2
+            }else if(count < 20){
+                whichShip = 1;} //1
+    }
+    
+
+ 
     
     private void setNumbers(GridPane mapGui,VBox vbox, HBox hbox){
         for(int v = 1; v <= groesse; v++){     
@@ -140,7 +207,6 @@ public class Map{
             vLabel.setAlignment(Pos.CENTER); //Text zentriert
             vLabel.setId("VHLabel");
             vbox.getChildren().add(vLabel); //Label Grafisch dargestellt
-            System.out.println("Is added "+ v);
             
             //Horizontal
             Label hLabel = new Label(Character.toString((char) ((char) 64 + v))); //ASCI CODE: A,B,C,D,E
@@ -183,6 +249,40 @@ public class Map{
               }
          
         }
+    }
+    
+    //For Computer 
+     @FXML
+     public boolean putShip(Player player,int y, int x){
+        String lokalisation  = Integer.toString(y)+ Integer.toString(x); //Position auf der X-Achse
+ 
+         //Welches Schiff wurde zum Einsetzen markiert
+         if(whichShip == 1 || whichShip == 2 || whichShip == 3 || whichShip == 4){
+                System.out.println(index[whichShip-1]+" < "+ allShipsPlayer.get(whichShip-1).length);
+               while(index[whichShip-1] < allShipsPlayer.get(whichShip-1).length - 1){ //Solange index kleiner als die Schiffgroesse ist
+              
+                 if(allShipsPlayer.get(whichShip-1)[index[whichShip-1]][whichShip] != whichShip){ //Falls  weniger Boxen eingesetzt wurden, als die entsprechende Grösse des Schiffes
+                     if(check(y,x,index[whichShip-1],whichShip,player) == true){ //Falls man auf dem Feld ein schiff einsetzen kann
+                        setMethodAttack(player, map[y][x]);
+                        ////Position des Schiffes wird gespeichert
+                        player.addToArray(whichShip, lokalisation);
+                        allShipsPlayer.get(whichShip-1)[index[whichShip-1]][whichShip] ++; 
+                         //Falls genau soviel Felder schon als Schiff markiert wurden, wie die entsprechene Grösse des Scgiffes
+                         System.out.println("HEY");
+                         if(allShipsPlayer.get(whichShip - 1)[index[whichShip-1]][whichShip] -1 == whichShip - 1){ 
+                             //int a = 0;
+                             index[whichShip-1] ++;
+                              
+                            // toSetLabels[whichShip -1].setText(Integer.toString(index[whichShip-1]));
+                         }
+                        return true;
+                     }
+                     break;
+                 }
+               }
+          
+         }
+         return false;
     }
     // 1 = erhöhen, 0 = abkürzen
     public void howManyShipsToSet(int whichShip,int deleteOrinsert, Label[] labels){
@@ -362,6 +462,18 @@ public class Map{
  
     }
     
+    //Methode zum Attacken
+    public void attack(MouseEvent event, Player player){
+       int y = Integer.parseInt(event.getSource().toString().substring(10, 11)); //Position auf der Y-Achse
+       int x = Integer.parseInt(event.getSource().toString().substring(11, 12)); //Position auf der X-Achse
+       
+       if(player.getMap().map[y][x].isShip() && !player.getMap().map[y][x].getHitted()){
+            map[y][x].showHitted();
+            map[y][x].setHitted(true);
+       }
+        
+    }
+    
     //Erstellt einen neuen Button
     public void setMethod(Player player, Field feld,Button[] putShips ,Label[] toSetLabels){
         //Felder bekommen automatisch eine Methode 
@@ -373,6 +485,32 @@ public class Map{
         }
         }); // Setzt die ID des Buttons ein  
    }
+    //AttackSpiel-Button
+    public void setMethodAttack(Player player, Field feld){
+        //Felder bekommen automatisch eine Methode 
+        feld.getBtn().addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
+        if(e.isPrimaryButtonDown()){  
+          attack(e,player);
+        }else if(e.isSecondaryButtonDown()){
+          
+        }
+        }); // Setzt die ID des Buttons ein  
+   }
+    
+    
+         
+     //For Computer
+    public void setMethod(Player player, Field feld){
+         //Felder bekommen automatisch eine Methode 
+         feld.getBtn().addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
+         if(e.isPrimaryButtonDown()){ 
+             int x = 0;
+             int y = 0;
+           putShip(player, y, x);
+         }
+         }); // Setzt die ID des Buttons ein  
+    }
+  
   
 
 }

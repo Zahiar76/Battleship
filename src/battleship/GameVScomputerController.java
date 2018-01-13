@@ -7,6 +7,7 @@ package battleship;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -55,6 +56,14 @@ public class GameVScomputerController implements Initializable {
        playerMap.getChildren().clear();
        manager.getPlayer1().getMap().setMap(playerMap, playerVBox, playerHBox);
        
+       computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
+       computer.getMap().setShipsComputer(computer);
+    
+       
+    }
+    @FXML
+    public void create(ActionEvent event){
+        computer.getMap().setShipsComputer(computer); 
     }
     
     @Override

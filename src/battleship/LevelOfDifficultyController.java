@@ -54,11 +54,10 @@ public class LevelOfDifficultyController implements Initializable {
         
     }
     
+    //
     @FXML
     private void startGame(ActionEvent event) throws IOException{
-        System.out.println("WOIRKING");
         manager.startGame();
-        manager.getObjektGame().createMap();
     }
  
     

@@ -21,6 +21,7 @@ public class Field {
     private Button btn = new Button(); //Grapische Oberfläche für ein Feld
     private int onTheEdge = 0;         //1 = oben 2 = rechts 3 = unten 4 = links 12 = oben rechts  14 = oben links 32 = unten rechts 34 = links
     private boolean isNeighbour = false;
+    private boolean hitted = false;
 
 
     /*
@@ -84,6 +85,18 @@ public class Field {
              btn.setStyle("-fx-background-color:");
         }
         this.ship = ship;
+        
+    }
+    
+    public void hideShip(){
+        btn.setStyle("-fx-background-color:");
+    }
+    public boolean getHitted() {
+        return hitted;
+    }
+
+    public void setHitted(boolean hitted) {
+        this.hitted = hitted;
     }
 
     public Button getBtn() {
@@ -118,6 +131,8 @@ public class Field {
     }
     //Button wird als "Getroffen" markiert
     public void showHitted(){
+        btn.setStyle("-fx-background-color:#2B2B2B");
+        hitted = true;
      
     }
     //Button wird als "Nicht Getroffen" markiert
