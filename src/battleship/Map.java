@@ -258,7 +258,7 @@ public class Map{
  
          //Welches Schiff wurde zum Einsetzen markiert
          if(whichShip == 1 || whichShip == 2 || whichShip == 3 || whichShip == 4){
-                System.out.println(index[whichShip-1]+" < "+ allShipsPlayer.get(whichShip-1).length);
+              
                while(index[whichShip-1] < allShipsPlayer.get(whichShip-1).length - 1){ //Solange index kleiner als die Schiffgroesse ist
               
                  if(allShipsPlayer.get(whichShip-1)[index[whichShip-1]][whichShip] != whichShip){ //Falls  weniger Boxen eingesetzt wurden, als die entsprechende Grösse des Schiffes
@@ -267,7 +267,7 @@ public class Map{
                         player.addToArray(whichShip, lokalisation);
                         allShipsPlayer.get(whichShip-1)[index[whichShip-1]][whichShip] ++; 
                          //Falls genau soviel Felder schon als Schiff markiert wurden, wie die entsprechene Grösse des Scgiffes
-                         System.out.println("HEY");
+                  
                          if(allShipsPlayer.get(whichShip - 1)[index[whichShip-1]][whichShip] -1 == whichShip - 1){ 
                              //int a = 0;
                              index[whichShip-1] ++;

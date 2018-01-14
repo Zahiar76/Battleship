@@ -347,11 +347,10 @@ public class Player {
           number = number+2;
           index1 = index;
         }
-        System.out.println("STOP");
+    
         if(count == index1){
             number = 0;
             for(int index =0; index < size/2; index ++){  
-                System.out.println("count = "+count);
               getMap().map[list.get(number)][list.get(number+1)].setDestroyed(true);  
               number = number+2;
             }

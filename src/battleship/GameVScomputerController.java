@@ -28,6 +28,7 @@ public class GameVScomputerController implements Initializable {
     Battleship manager;
     Player player = new Player();
     Player computer = new Player();
+    Computer computerLogic = new Computer();
 
     
     @FXML
@@ -63,18 +64,18 @@ public class GameVScomputerController implements Initializable {
        computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        computer.getMap().setShipsComputer(computer);
        
-//       opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
-//         if(e.isPrimaryButtonDown()){ 
-//          computer.findDestroyedShip();
-//         }
-//         });
+       opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
+         if(e.isPrimaryButtonDown()){ 
+          computerLogic.attack(50, computer);
+         }
+         });
 
        
     }
     
     @FXML
     private void showDestroyedShips(ActionEvent event){
-        manager.getPlayer1().findDestroyedShip();
+       //manager.getPlayer1().findDestroyedShip();
         computer.findDestroyedShip();
     }
     @FXML
