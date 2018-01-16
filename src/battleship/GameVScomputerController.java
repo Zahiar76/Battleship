@@ -7,7 +7,9 @@ package battleship;
 
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,10 +27,11 @@ import javafx.scene.layout.VBox;
  * @author Emil Poorando
  */
 public class GameVScomputerController implements Initializable {
-    Battleship manager;
-    Player player = new Player();
-    Player computer = new Player();
-    Computer computerLogic = new Computer();
+   private Battleship manager;
+    private Player player = new Player();
+    private Player computer = new Player();
+    private Computer computerLogic = new Computer();
+    public static ArrayList<Integer> random = new ArrayList<>();
 
     
     @FXML
@@ -57,6 +60,8 @@ public class GameVScomputerController implements Initializable {
     public void createMap(){
         Button[] putShips = {new Button(),new Button(), new Button(), new Button()};
         Label[] toSetLabels = {new Label(),new Label(),new Label(),new Label()};
+        addToArray();
+        computerLogic.probabilityToHit = 50.0;
         //computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        playerMap.getChildren().clear();
        manager.getPlayer1().getMap().setMap(playerMap, playerVBox, playerHBox);
@@ -66,11 +71,21 @@ public class GameVScomputerController implements Initializable {
        
        opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
          if(e.isPrimaryButtonDown()){ 
-          computerLogic.attack(50, computer);
+          computerLogic.tryToHit(manager.getPlayer1());
          }
          });
 
        
+    }
+    private int random(){
+        int randomNumber = new Random().nextInt(100);
+        return random.get(randomNumber);
+    }
+    
+    private void addToArray(){
+        for(int index = 0; index < 99; index++){
+            random.add(index);
+        }
     }
     
     @FXML

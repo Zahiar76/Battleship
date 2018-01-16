@@ -168,6 +168,7 @@ public class Field {
     }
     //Button wird als "Schiff" markiert
     public void showShip(){
+        btn.setStyle("-fx-background-color:#14d195");
       
     }
     //Button wird als "Getroffen" markiert
