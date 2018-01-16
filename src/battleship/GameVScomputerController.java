@@ -77,7 +77,7 @@ public class GameVScomputerController implements Initializable {
 
        
     }
-    private int random(){
+    public static int random(){
         int randomNumber = new Random().nextInt(100);
         return random.get(randomNumber);
     }

@@ -147,6 +147,7 @@ public class Field {
     }
 
     public void setChecked(boolean checked) {
+        btn.setStyle("-fx-background-color:#000000;");
         this.checked = checked;
     }
     
@@ -189,6 +190,10 @@ public class Field {
         //System.out.println(y);
         return y;
     }
+    public int getShipID(){
+       return Integer.parseInt(getBtn().getId());
+    }
+
 }
     
  

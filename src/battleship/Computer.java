@@ -28,7 +28,8 @@ public class Computer {
             switch (position.size()) {
                 case 2:
                     break;
-            //Trzeba zrobic zeby komputer wiedzial, czy ma szczelac w statek czy nie
+            //Computer po trafieniu znow ma tylko 50% szans na trafienie, 
+            // jesli statek zostanie trafiony, bedzie probowal dalej trafiac dalej, (powinno byc ze proboje trafiac kolo statku narazie ma 100%)
             //Trzeba tez obstawic zatopiony statek zeby komputer nie szczelal obok zatopionego statku
             //Jak to bd zrobione mozna zaczac programowac ruch komputer 
                 case 4:
@@ -65,11 +66,16 @@ public class Computer {
           System.out.println("ATTACK");
           findNotDestroyedShip(player);
           if(position.isEmpty()){
-             GameVScomputerController.random.add(3);
-          }else{
-            
+             int random = GameVScomputerController.random();
+             if(findShip(player, random)){
+                tryToHit(player); 
+             };
+             GameVScomputerController.random.remove(random);
+             
           }
-        } 
+            
+          
+        }
     }
     
     private void findNotDestroyedShip(Player player){
@@ -87,20 +93,20 @@ public class Computer {
                     }
          }      }
     }
-   private void findShip(Player player, int shipID, boolean canShoot){
+   private boolean findShip(Player player, int shipID){
          for(Field[] yAxis: player.getMap().map){
                 for(Field xAxis : yAxis){
-                    if(xAxis.isShip()){
-                        if(xAxis.isChecked() || xAxis.getHitted()){
-                            continue;
-                        }else{
-                            y = xAxis.getY();
-                            x = xAxis.getX();
-                            position = findNeigh(player,y,x);
-                             System.out.println("found not Destroyed Y ="+y+" X = "+x);
-                        }  
+                    System.out.println("xAxis.getIDShip() = "+xAxis.getShipID() +" shipID = "+ shipID);
+                    if(xAxis.getShipID() == shipID && xAxis.isShip()){
+                       destroyShip(player, xAxis.getY(), xAxis.getX()); 
+                       return true;
+                    }else if(xAxis.getShipID() == shipID && !xAxis.isShip()){
+                       player.getMap().map[xAxis.getY()][xAxis.getX()].setChecked(true);
+                       return false;
                     }
          }      }
+        System.out.println("Error: ID not find");
+        return false;
     }
     
     
