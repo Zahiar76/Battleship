@@ -31,7 +31,7 @@ public class GameVScomputerController implements Initializable {
     private Player player = new Player();
     private Player computer = new Player();
     private Computer computerLogic = new Computer();
-    public static ArrayList<Integer> random = new ArrayList<>();
+
 
     
     @FXML
@@ -60,7 +60,7 @@ public class GameVScomputerController implements Initializable {
     public void createMap(){
         Button[] putShips = {new Button(),new Button(), new Button(), new Button()};
         Label[] toSetLabels = {new Label(),new Label(),new Label(),new Label()};
-        addToArray();
+
         computerLogic.probabilityToHit = 50.0;
         //computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        playerMap.getChildren().clear();
@@ -77,16 +77,7 @@ public class GameVScomputerController implements Initializable {
 
        
     }
-    public static int random(){
-        int randomNumber = new Random().nextInt(100);
-        return random.get(randomNumber);
-    }
-    
-    private void addToArray(){
-        for(int index = 0; index < 99; index++){
-            random.add(index);
-        }
-    }
+
     
     @FXML
     private void showDestroyedShips(ActionEvent event){

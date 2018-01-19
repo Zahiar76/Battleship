@@ -103,6 +103,7 @@ public class Field {
         this.hitted = hitted; 
         if(hitted){
             btn.setStyle("-fx-background-color:#2B2B2B;");
+            setChecked(true);
         }else{
             btn.setStyle("-fx-background-color:#000000;");
             setChecked(true);
