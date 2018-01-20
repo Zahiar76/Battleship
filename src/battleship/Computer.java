@@ -24,28 +24,54 @@ public class Computer extends Thread{
     private int x;
     private ArrayList<Integer> position = new ArrayList<Integer>();
     private ArrayList<Integer> randomArray = new ArrayList<Integer>();
+    private Player player = new Player();
+    public boolean attack = false;
+    public boolean running = true;
     
     //Konstruktor
     Computer(Player player){
+        this.player = player;
         addToArray();
+    }
+    
+    @Override
+    public void run(){
+        while(running){
+            System.out.println("hey0");
+            if(attack){
+                System.out.println("hey");
+                try {
+                    tryToHit(player);
+                    TimeUnit.SECONDS.sleep(1);
+                    destroyShip(y, x);
+               
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
+            }
+        
+       
     }
     
     private void attack(Player player, boolean promission){
         int rnd;
         rnd = randomFunc(position.size() - 1);
-        destroyShip(player,position.get(rnd),position.get(rnd+1));
+        y = position.get(rnd);
+        x = position.get(rnd+1);
     }
     
-    private void destroyShip(Player player, int y, int x){
+    private void destroyShip(int y, int x){
         if(player.getMap().map[y][x].isShip()){
             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x))));
             player.getMap().map[y][x].setHitted(true);
-            setNeighbour(true,y, x, player);
+            //setNeighbour(true,y, x, player);
             player.findDestroyedShip();
             tryToHit(player); 
         }else{
             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x))));
             player.getMap().map[y][x].setChecked(true);
+            attack = false;
             //System.out.println("check this Ship Y = "+y+" X = "+x);
         }
   
@@ -53,9 +79,8 @@ public class Computer extends Thread{
     }
     
     public void tryToHit(Player player){
-        try {
             int random;
-            TimeUnit.SECONDS.sleep(1);
+            
             probability = Math.random() < (probabilityToHit/100);
             // System.out.println("probablitiy = "+ probability);
             position = findNotDestroyedShip(player,probability);
@@ -66,9 +91,7 @@ public class Computer extends Thread{
             }else{
                 attack(player,probability);    
             }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
           
         
     }
@@ -100,7 +123,9 @@ public class Computer extends Thread{
                 for(Field xAxis : yAxis){
                     //System.out.println("xAxis.getIDShip() = "+xAxis.getShipID() +" shipID = "+ shipID);
                     if(xAxis.getShipID() == shipID){
-                       destroyShip(player, xAxis.getY(), xAxis.getX());
+                       //destroyShip( xAxis.getY(), xAxis.getX());
+                       y = xAxis.getY();
+                       x = xAxis.getX();
                        if(xAxis.isShip()){
                         return true;
                        }else{
@@ -120,14 +145,14 @@ public class Computer extends Thread{
         
         for(int a = 0; a < 2; a++){
             if(yx[a] +1 < player.getMap().map.length){
-                if(!player.getMap().map[y+add[a+1]][x+add[a]].isChecked() && player.getMap().map[y+add[a+1]][x+add[a]].isShip() == promission){
+                if(!player.getMap().map[y+add[a+1]][x+add[a]].isChecked() && player.getMap().map[y+add[a+1]][x+add[a]].isShip() == promission && !player.getMap().map[y+add[a+1]][x+add[a]].getIsNeighbour()){
                     position.add(y+add[a+1]);
                     position.add(x+add[a]);
                 }    
             }
             if(yx[a] - 1 >= 0){
                 
-                if(!player.getMap().map[y-add[a+1]][x-add[a]].isChecked()  && player.getMap().map[y-add[a+1]][x-add[a]].isShip() == promission){
+                if(!player.getMap().map[y-add[a+1]][x-add[a]].isChecked()  && player.getMap().map[y-add[a+1]][x-add[a]].isShip() == promission && !player.getMap().map[y-add[a+1]][x-add[a]].getIsNeighbour()){
                     position.add(y-add[a+1]);
                     position.add(x-add[a]);
                 }
@@ -170,7 +195,7 @@ public class Computer extends Thread{
                     position = randomArray.get(randomNumber);
                     System.out.println("Position = "+position);
                      return position;
-                }else if(!player.getMap().map[y][x].isShip() && !promission){
+                }else if(!player.getMap().map[y][x].isShip() && !promission && !player.getMap().map[y][x].getIsNeighbour()){
                     position = randomArray.get(randomNumber);;
                     System.out.println("Position = "+position);
                     return position;

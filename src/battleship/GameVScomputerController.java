@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,6 +34,7 @@ public class GameVScomputerController implements Initializable {
     private Player player = new Player();
     private Player computer = new Player();
     private Computer computerLogic;
+    private boolean playerTurn = true; 
 
 
     
@@ -60,20 +64,27 @@ public class GameVScomputerController implements Initializable {
     public void createMap(){
         Button[] putShips = {new Button(),new Button(), new Button(), new Button()};
         Label[] toSetLabels = {new Label(),new Label(),new Label(),new Label()};
-        computerLogic =  new Computer(computer);
-        computerLogic.start();
 
-        computerLogic.probabilityToHit = 50.0;
+
+        
         //computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        playerMap.getChildren().clear();
        manager.getPlayer1().getMap().setMap(playerMap, playerVBox, playerHBox);
-       
        computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        computer.getMap().setShipsComputer(computer);
+       computerLogic =  new Computer(manager.getPlayer1());
+       computerLogic.setDaemon(true);
+       computerLogic.probabilityToHit = 50.0;
+        computerLogic.start();
+       
+        
+        
        
        opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
          if(e.isPrimaryButtonDown()){ 
-          computerLogic.tryToHit(manager.getPlayer1());
+            playerTurn = false;
+            computerLogic.attack= true;
+
          }
          });
 

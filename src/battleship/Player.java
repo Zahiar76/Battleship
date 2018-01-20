@@ -348,11 +348,40 @@ public class Player {
             number = 0;
             for(int index =0; index < size/2; index ++){  
               getMap().map[list.get(number)][list.get(number+1)].setDestroyed(true);  
+              setNeighbour(true,list.get(number),list.get(number+1));
               number = number+2;
             }
            return "Destroyed";  
         }
         return "Not Destroyed";
+    }
+    
+        public void setNeighbour(boolean setNeigh,int y, int x){
+         if(y - 1 >= 0){//Falls Feld nich ganz oben ist
+             getMap().map[y - 1][x].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                if(x + 1 < getMap().map.length){//Falls Feld nicht ganz oben rechts ist
+                   getMap().map[y-1][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                }
+                if(x - 1 >= 0){//Falls Feld nicht ganz oben links ist
+                   getMap().map[y-1][x-1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                }
+         }
+         if(y + 1< getMap().map.length){ ///Falls Feld nicht ganz unten ist
+            getMap().map[y+1][x].setIsNeighbour(setNeigh);
+                if(x + 1 < getMap().map.length){///Falls Feld nicht ganz rechts unten ist
+                    getMap().map[y+1][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                }
+                if(x - 1 >= 0){///Falls Feld nicht ganz links unten ist
+                    getMap().map[y+1][x-1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                }
+        }
+        if(x + 1 < getMap().map.length){///Falls Feld nicht ganz rechts ist
+             getMap().map[y][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+         }
+        if(x - 1 >= 0){///Falls Feld links ganz unten ist
+             getMap().map[y][x-1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+         }
+        getMap().map[y][x].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
     }
 
     
