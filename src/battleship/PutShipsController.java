@@ -180,14 +180,11 @@ public class PutShipsController implements Initializable {
         Label[] toSetLabels = {toSetLabel1,toSetLabel2,toSetLabel3,toSetLabel4};
         final int ready = 0;
         for(Label label :toSetLabels){     
-            label.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-                    if(checkIFzero()){
-                        readyBtn.setDisable(false);
-                    }else{
-                        readyBtn.setDisable(true);
-                    }
+            label.textProperty().addListener((ObservableValue<? extends String> ov, String t, String t1) -> {
+                if(checkIFzero()){
+                    readyBtn.setDisable(false);
+                }else{
+                    readyBtn.setDisable(true);
                 }
             }); 
         }

@@ -30,7 +30,7 @@ public class GameVScomputerController implements Initializable {
    private Battleship manager;
     private Player player = new Player();
     private Player computer = new Player();
-    private Computer computerLogic = new Computer();
+    private Computer computerLogic;
 
 
     
@@ -60,6 +60,8 @@ public class GameVScomputerController implements Initializable {
     public void createMap(){
         Button[] putShips = {new Button(),new Button(), new Button(), new Button()};
         Label[] toSetLabels = {new Label(),new Label(),new Label(),new Label()};
+        computerLogic =  new Computer(computer);
+        computerLogic.start();
 
         computerLogic.probabilityToHit = 50.0;
         //computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);

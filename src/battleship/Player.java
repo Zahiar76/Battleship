@@ -57,9 +57,7 @@ public class Player {
     }
     
     public String getPositionFromArray(int whichShip, int position){
-        System.out.println("here");
         for(int index = shipsPosition2.get(whichShip-1).size()- 1; index >= 0; index --){ //falls es freien Platz gibt
-            System.out.println("IF "+shipsPosition2.get(whichShip-1).get(index).size()+" = "+ whichShip);
             if(shipsPosition2.get(whichShip-1).get(index).size() == (whichShip)){ // Freier Platz wird gesucht
                 
                 return shipsPosition2.get(whichShip-1).get(index).get(position); 
@@ -253,7 +251,6 @@ public class Player {
             }
         }
         
-        System.out.println(findFreePlaceInArray(whichShip));
         for(int index = 0; index < 3; index ++){
             if(getShipsPosition2().get(list.get(index)).get(findFreePlaceInArray(index+1)).size() == 0
                ||
@@ -278,7 +275,6 @@ public class Player {
          number = 0;
          for(Object b : a){
           if(shipsPosition2.get(whichShip).get(number).indexOf(position) >= 0){
-              System.out.println("whichShip"+whichShip);
               return whichShip;
           }
           number ++;

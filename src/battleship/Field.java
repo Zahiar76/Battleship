@@ -38,7 +38,6 @@ public class Field {
         btn.setId(lokalisation); // Setzt die ID des Buttons ein
         btn.setPrefWidth(mapGui.getPrefWidth() / groesse); //Die Breit der Karte wird durch die entsprechende Anzahl von Buttons geteilt, und somit hat jeder Button die gleiche Breite  
         btn.setPrefHeight(mapGui.getPrefHeight()  / groesse); //Die Höhe der Karte wird durch die entsprechende Anzahl von Buttons geteilt, damit jeder Button die gleiche Höhe bekommt 
-        System.out.println(lokalisation);
         showNormal();
 }
     Field(){
@@ -64,7 +63,7 @@ public class Field {
     public void setIsNeighbour(boolean isNeighbour) {
         this.isNeighbour = isNeighbour;
         if(isNeighbour && !ship){
-            btn.setStyle("-fx-background-color:green;");
+            //btn.setStyle("-fx-background-color:green;");
         }else if(!isNeighbour && !ship){
       
           btn.setStyle("");  
@@ -102,8 +101,8 @@ public class Field {
     public void setHitted(boolean hitted) {
         this.hitted = hitted; 
         if(hitted){
-            btn.setStyle("-fx-background-color:#2B2B2B;");
             setChecked(true);
+            btn.setStyle("-fx-background-color:#2B2B2B;");
         }else{
             btn.setStyle("-fx-background-color:#000000;");
             setChecked(true);
