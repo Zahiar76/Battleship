@@ -37,21 +37,26 @@ public class Computer extends Thread{
     @Override
     public void run(){
         while(running){
-            System.out.println("hey0");
+          synchronize();
             if(attack){
-                System.out.println("hey");
-                try {
+                //try {
                     tryToHit(player);
-                    TimeUnit.SECONDS.sleep(1);
+                    //TimeUnit.SECONDS.sleep(1);
                     destroyShip(y, x);
                
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               // } catch (InterruptedException ex) {
+                  //  Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
+                //}
                 }
             }
         
        
+    }
+    public synchronized void setAttack(boolean attack){
+      this.attack = attack;
+    }
+    public synchronized void synchronize(){
+      
     }
     
     private void attack(Player player, boolean promission){
@@ -66,12 +71,15 @@ public class Computer extends Thread{
             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x))));
             player.getMap().map[y][x].setHitted(true);
             //setNeighbour(true,y, x, player);
-            player.findDestroyedShip();
+            findDestroyedShip();
             tryToHit(player); 
+           
         }else{
+
             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x))));
             player.getMap().map[y][x].setChecked(true);
             attack = false;
+            
             //System.out.println("check this Ship Y = "+y+" X = "+x);
         }
   
@@ -85,6 +93,7 @@ public class Computer extends Thread{
             // System.out.println("probablitiy = "+ probability);
             position = findNotDestroyedShip(player,probability);
             // System.out.println("position is " + position);
+            System.out.println("IS postion empty = "+position);
             if(position.isEmpty()){
                 random = random(player, probability);
                 findShip(player, random);
@@ -109,8 +118,10 @@ public class Computer extends Thread{
                                 continue;
                             }
                             //System.out.println("found not Destroyed Y ="+y+" X = "+x);
-                            if(findNeigh(player,y,x,promission).isEmpty()){
+                            if(findNeigh(player,y,x,false).isEmpty()){
                                 return findNeigh(player,y,x,true);
+                            }else if(findNeigh(player,y,x,promission).isEmpty()){
+                                continue;
                             }
                             return findNeigh(player,y,x,promission);
                         }  
@@ -123,6 +134,7 @@ public class Computer extends Thread{
                 for(Field xAxis : yAxis){
                     //System.out.println("xAxis.getIDShip() = "+xAxis.getShipID() +" shipID = "+ shipID);
                     if(xAxis.getShipID() == shipID){
+                        System.out.println("");
                        //destroyShip( xAxis.getY(), xAxis.getX());
                        y = xAxis.getY();
                        x = xAxis.getX();
@@ -183,20 +195,20 @@ public class Computer extends Thread{
         ArrayList<Integer> list = new ArrayList();
         list = randomArray;
          int position = 0;
-         System.out.println("SIZE IS "+list.size());
-         
+         System.out.println("SIZE = "+list.size());
+         System.out.println("Promission = "+promission);
         for(int index = list.size(); index > 0; index --){
             randomNumber = new Random().nextInt(index);
             y = getY(list.get(randomNumber));
             x = getX(list.get(randomNumber));
-            System.out.println("RANDOM = "+promission+" YX = "+list.get(randomNumber));
+            System.out.println("RandomNumber = "+randomNumber);
             
                 if(player.getMap().map[y][x].isShip() && promission){
-                    position = randomArray.get(randomNumber);
+                    position = randomArray.get(new Integer(randomNumber));
                     System.out.println("Position = "+position);
                      return position;
                 }else if(!player.getMap().map[y][x].isShip() && !promission && !player.getMap().map[y][x].getIsNeighbour()){
-                    position = randomArray.get(randomNumber);;
+                    position = randomArray.get(new Integer(randomNumber));;
                     System.out.println("Position = "+position);
                     return position;
                 }
@@ -237,32 +249,104 @@ public class Computer extends Thread{
    
          /* SET Neighbour */
     //  Setzt Nachbarn ein 
-    public void setNeighbour(boolean setNeigh,int y, int x, Player player){
+     public void findDestroyedShip(){
+        String yx = "";
+        int y;
+        int x;
+        String ok;
+
+        //Ship 1
+        for(int index = 0; index <= 3; index++){                 
+            for(ArrayList a : player.getShipsPosition2().get(index)){
+                yx = a.toString();
+                yx = yx.replaceAll("[^-?0-9]+", ""); 
+                if(index == 0 && yx.length() == 2 ){
+                  ok =  setDestroyedField(yx);
+                }
+                if(index == 1 && yx.length() == 4){
+                  ok = setDestroyedField(yx);
+                }
+                if(index == 2 && yx.length() == 6){
+                  ok = setDestroyedField(yx);
+                }
+                if(index == 3 && yx.length() == 8){
+                  ok =  setDestroyedField(yx);
+                }
+            }
+        }
+    }  
+    
+    public String setDestroyedField(String yx){
+        int y,x;
+        int size = yx.length();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        int zero = -1;
+        int one = 0;
+        int count = 0;
+        int number = 0;
+         int index1 = 0;
+   
+        for(int index =0; index < size; index ++){
+            zero ++;
+            one ++; 
+            list.add(Integer.parseInt(yx.substring(zero,one))); 
+        }
+        number = 0;
+        for(int index =1; index <= size/2; index ++){
+            if(player.getMap().map[list.get(number)][list.get(number+1)].getHitted()){
+                count ++;  
+            }
+          number = number+2;
+          index1 = index;
+        }
+    
+        if(count == index1){
+            number = 0;
+            for(int index =0; index < size/2; index ++){  
+              player.getMap().map[list.get(number)][list.get(number+1)].setDestroyed(true);  
+              setNeighbour(true,list.get(number),list.get(number+1));
+              number = number+2;
+            }
+           return "Destroyed";  
+        }
+        return "Not Destroyed";
+    }
+    
+        public void setNeighbour(boolean setNeigh,int y, int x){
          if(y - 1 >= 0){//Falls Feld nich ganz oben ist
              player.getMap().map[y - 1][x].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y-1)+Integer.toString(x))));
                 if(x + 1 < player.getMap().map.length){//Falls Feld nicht ganz oben rechts ist
-                    player.getMap().map[y-1][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                   player.getMap().map[y-1][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                   randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y-1)+Integer.toString(x+1))));
                 }
                 if(x - 1 >= 0){//Falls Feld nicht ganz oben links ist
-                    player.getMap().map[y-1][x-1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                   player.getMap().map[y-1][x-1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                   randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y-1)+Integer.toString(x-1))));
                 }
          }
-         if(y + 1< player.getMap().map.length){ ///Falls Feld nicht ganz unten ist
+         if(y + 1<player.getMap().map.length){ ///Falls Feld nicht ganz unten ist
             player.getMap().map[y+1][x].setIsNeighbour(setNeigh);
+            randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y+1)+Integer.toString(x))));
                 if(x + 1 < player.getMap().map.length){///Falls Feld nicht ganz rechts unten ist
-                    player.getMap().map[y+1][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                   player.getMap().map[y+1][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                   randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y+1)+Integer.toString(x+1))));
                 }
                 if(x - 1 >= 0){///Falls Feld nicht ganz links unten ist
                     player.getMap().map[y+1][x-1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+                    randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y+1)+Integer.toString(x-1))));
                 }
         }
         if(x + 1 < player.getMap().map.length){///Falls Feld nicht ganz rechts ist
              player.getMap().map[y][x+1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x+1))));
          }
         if(x - 1 >= 0){///Falls Feld links ganz unten ist
              player.getMap().map[y][x-1].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x-1))));
          }
         player.getMap().map[y][x].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
+        randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x))));
     }
      
 

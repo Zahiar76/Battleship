@@ -83,7 +83,7 @@ public class GameVScomputerController implements Initializable {
        opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
          if(e.isPrimaryButtonDown()){ 
             playerTurn = false;
-            computerLogic.attack= true;
+            computerLogic.setAttack(true);
 
          }
          });
