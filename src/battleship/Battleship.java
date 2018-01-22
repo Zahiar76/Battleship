@@ -36,6 +36,7 @@ public class Battleship extends Application {
     private Scene sceneMenu;
     private Scene levelScene;
     private Scene gameScene;
+    private int whoHasWon; // Player 1 or Player 2
     
     private Player player1 = new Player();
     private Player player2 = new Player();
@@ -124,6 +125,17 @@ public class Battleship extends Application {
     public void setLevelScene(Scene levelScene) {
         this.levelScene = levelScene;
     }
+
+    public int getWhoHasWon() {
+        return whoHasWon;
+    }
+
+//    public void setWhoHasWon(int whoHasWon) {
+//        this.whoHasWon = whoHasWon;
+//        if(whoHasWon == 1){
+//            objektGame.winMessage();
+//        }
+//    }
 
     /*
     Windows

@@ -474,15 +474,15 @@ public class Map{
     public void attack(MouseEvent event, Player player){
        int y = Integer.parseInt(event.getSource().toString().substring(10, 11)); //Position auf der Y-Achse
        int x = Integer.parseInt(event.getSource().toString().substring(11, 12)); //Position auf der X-Achse
-  
-       if(player.getMap().map[y][x].isShip() && !player.getMap().map[y][x].getHitted()){
-            map[y][x].setHitted(true);
-            player.findDestroyedShip();
-            
-       }else if(!player.getMap().map[y][x].getHitted()&&!player.getMap().map[y][x].isChecked()){
-           map[y][x].setHitted(false);
-       }
-       
+        if(!player.getMap().map[y][x].isChecked()){
+             if(player.getMap().map[y][x].isShip() && !player.getMap().map[y][x].getHitted()){
+                  map[y][x].setHitted(true);
+                  player.findDestroyedShip();
+
+             }else if(!player.getMap().map[y][x].getHitted()&&!player.getMap().map[y][x].isChecked()){
+                 map[y][x].setHitted(false);
+             }
+        } 
     }
     
     //Erstellt einen neuen Button

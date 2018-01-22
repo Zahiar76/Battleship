@@ -14,9 +14,12 @@ import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -34,7 +37,8 @@ public class GameVScomputerController implements Initializable {
     private Player player = new Player();
     private Player computer = new Player();
     private Computer computerLogic;
-    private boolean playerTurn = true; 
+    private static boolean playerTurn = true; 
+    private static Alert  alert = new Alert(AlertType.INFORMATION);
 
 
     
@@ -64,9 +68,6 @@ public class GameVScomputerController implements Initializable {
     public void createMap(){
         Button[] putShips = {new Button(),new Button(), new Button(), new Button()};
         Label[] toSetLabels = {new Label(),new Label(),new Label(),new Label()};
-
-
-        
         //computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        playerMap.getChildren().clear();
        manager.getPlayer1().getMap().setMap(playerMap, playerVBox, playerHBox);
@@ -76,10 +77,7 @@ public class GameVScomputerController implements Initializable {
        computerLogic.setDaemon(true);
        computerLogic.probabilityToHit = 50.0;
         computerLogic.start();
-       
         
-        
-       
        opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
          if(e.isPrimaryButtonDown()){ 
             playerTurn = false;
@@ -89,6 +87,23 @@ public class GameVScomputerController implements Initializable {
          });
 
        
+    }
+    
+    
+    public static void winMessage(int whoHasWon){
+    Platform.runLater(() -> {
+        if(whoHasWon==1){
+            alert.setTitle("Congratulations");
+            alert.setHeaderText(null);
+            alert.setContentText("You are the winner!");
+            alert.showAndWait();            
+        }else{
+            alert.setTitle("Info");
+            alert.setHeaderText(null);
+            alert.setContentText("Game over!");
+            alert.showAndWait();               
+        }
+    });
     }
 
     

@@ -62,6 +62,7 @@ public class Field {
     */
     public void setIsNeighbour(boolean isNeighbour) {
         this.isNeighbour = isNeighbour;
+        this.checked = isNeighbour;
         if(isNeighbour && !ship){
             btn.setStyle("-fx-background-color:green;");
         }else if(!isNeighbour && !ship){

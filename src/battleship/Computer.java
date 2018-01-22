@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 
 /**
  *
@@ -20,13 +21,14 @@ public class Computer extends Thread{
     
     public double probabilityToHit = 0;
     private boolean probability;
+    private Battleship manager;
     private int y;
     private int x;
     private ArrayList<Integer> position = new ArrayList<Integer>();
     private ArrayList<Integer> randomArray = new ArrayList<Integer>();
     private Player player = new Player();
     public boolean attack = false;
-    public boolean running = true;
+    private int numberOfShips = 20;
     
     //Konstruktor
     Computer(Player player){
@@ -36,17 +38,17 @@ public class Computer extends Thread{
     
     @Override
     public void run(){
-        while(running){
+        while(numberOfShips > 0){
           synchronize();
             if(attack){
-                //try {
+                try {
                     tryToHit(player);
-                    //TimeUnit.SECONDS.sleep(1);
+                    TimeUnit.MILLISECONDS.sleep(500);
                     destroyShip(y, x);
                
-               // } catch (InterruptedException ex) {
-                  //  Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
-                //}
+               } catch (InterruptedException ex) {
+                   Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 }
             }
         
@@ -58,6 +60,12 @@ public class Computer extends Thread{
     public synchronized void synchronize(){
       
     }
+    private void checkNumberOfShips(){
+        Platform.setImplicitExit(false);
+        if(--numberOfShips == 0){ // If 0 = Computer has won
+            GameVScomputerController.winMessage(2);
+        }
+    } 
     
     private void attack(Player player, boolean promission){
         int rnd;
@@ -72,10 +80,9 @@ public class Computer extends Thread{
             player.getMap().map[y][x].setHitted(true);
             //setNeighbour(true,y, x, player);
             findDestroyedShip();
+            checkNumberOfShips();
             tryToHit(player); 
-           
         }else{
-
             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x))));
             player.getMap().map[y][x].setChecked(true);
             attack = false;
@@ -88,7 +95,6 @@ public class Computer extends Thread{
     
     public void tryToHit(Player player){
             int random;
-            
             probability = Math.random() < (probabilityToHit/100);
             // System.out.println("probablitiy = "+ probability);
             position = findNotDestroyedShip(player,probability);
