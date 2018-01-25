@@ -200,7 +200,7 @@ public class Battleship extends Application {
     }
     
         //Schwierigkeitsgrad Fenster
-    public void game() throws IOException{
+    public void game(double probabilityToHit) throws IOException{
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("gameVScomputer.fxml"));
@@ -209,7 +209,9 @@ public class Battleship extends Application {
         GameVScomputerController controller = loader.getController();
         controller.setMainApp(this);
         objektGame = controller.getMe(); //Klasse bekannt machen
+        objektGame.setProbabilityToHit(probabilityToHit);
         objektGame.createMap();
+ 
     
         this.gameScene= new Scene(root);
         
@@ -220,8 +222,8 @@ public class Battleship extends Application {
     public void goToMenu(){
       this.stage.setScene(sceneMenu);
     }
-    public void startGame() throws IOException{
-        game();
+    public void startGame(double probabilityToHit) throws IOException{
+        game(probabilityToHit);
     }
     public void goToLevel() throws IOException{
       levelOfDifficultyWindow();
