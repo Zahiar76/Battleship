@@ -27,40 +27,45 @@ public class Computer extends Thread{
     private ArrayList<Integer> position = new ArrayList<Integer>();
     private ArrayList<Integer> randomArray = new ArrayList<Integer>();
     private Player player = new Player();
-    private Player playerOpponent = new Player();
-   // private int numberOfShips = 20;
+    public boolean attack = false;
+    private int numberOfShips = 20;
     
     //Konstruktor
-    Computer(Player player, Player playerOpponent){
+    Computer(Player player){
         this.player = player;
-        this.playerOpponent = playerOpponent;
         addToArray();
     }
     
     @Override
     public void run(){
-        while(player.getMap().getNumberOfShips() > 0 && GameVScomputerController.winner == 0){
+        while(numberOfShips > 0){
           synchronize();
- 
-            if(playerOpponent.getMap().isTurn() == false){
+            if(attack){
                 try {
                     tryToHit(player);
                     TimeUnit.MILLISECONDS.sleep(500);
                     destroyShip(y, x);
-                    GameVScomputerController.playerTurn = true;
                
                } catch (InterruptedException ex) {
                    Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 }
             }
+        
        
     }
- 
+    public synchronized void setAttack(boolean attack){
+      this.attack = attack;
+    }
     public synchronized void synchronize(){
-       
+      
     }
-
+    private void checkNumberOfShips(){
+        Platform.setImplicitExit(false);
+        if(--numberOfShips == 0){ // If 0 = Computer has won
+            GameVScomputerController.winMessage(2);
+        }
+    } 
     
     private void attack(Player player, boolean promission){
         int rnd;
@@ -75,14 +80,12 @@ public class Computer extends Thread{
             player.getMap().map[y][x].setHitted(true);
             //setNeighbour(true,y, x, player);
             findDestroyedShip();
-            player.getMap().checkNumberOfShips(2);
-                if( player.getMap().getNumberOfShips() > 0){
-                    tryToHit(player);
-                }; 
+            checkNumberOfShips();
+            tryToHit(player); 
         }else{
             randomArray.remove(new Integer(Integer.parseInt(Integer.toString(y)+Integer.toString(x))));
             player.getMap().map[y][x].setChecked(true);
-            playerOpponent.getMap().setTurn(true);
+            attack = false;
             
             //System.out.println("check this Ship Y = "+y+" X = "+x);
         }

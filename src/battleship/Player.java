@@ -384,6 +384,5 @@ public class Player {
         getMap().map[y][x].setIsNeighbour(setNeigh);//Feld als Nachbarn markiert
     }
 
-
     
 }

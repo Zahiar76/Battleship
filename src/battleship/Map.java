@@ -33,8 +33,6 @@ public class Map{
     int[] index = new int[4];
     public static final AtomicInteger count = new AtomicInteger(1); //unique index
     private  int shipID; // ID
-    private int numberOfShips = 20; // For Game
-    private boolean turn = true;
     /*Man weisst, wieviele Boxe eines Schiffes schon eingesetzt wurden*/
     ArrayList<int[][]> allShipsPlayer = new ArrayList<int[][]>(){{
       add(new int[4+1][1+1]);
@@ -79,22 +77,6 @@ public class Map{
     public void setShipID(int y, int x) {
         this.shipID = map[y][x].getIDShip();
     }   
-
-    public int getNumberOfShips() {
-        return numberOfShips;
-    }
-
-    public void setNumberOfShips(int numberOfShips) {
-        this.numberOfShips = numberOfShips;
-    }
-
-    public boolean isTurn() {
-        return turn;
-    }
-
-    public void setTurn(boolean turn) {
-        this.turn = turn;
-    }
 
          
 
@@ -490,22 +472,17 @@ public class Map{
     
     //Methode zum Attacken
     public void attack(MouseEvent event, Player player){
-       if(getNumberOfShips() > 0 && GameVScomputerController.winner == 0 && turn == true){
-            int y = Integer.parseInt(event.getSource().toString().substring(10, 11)); //Position auf der Y-Achse
-            int x = Integer.parseInt(event.getSource().toString().substring(11, 12)); //Position auf der X-Achse
-             if(!player.getMap().map[y][x].isChecked()){
-                  if(player.getMap().map[y][x].isShip() && !player.getMap().map[y][x].getHitted()){
-                       map[y][x].setHitted(true);
-                       player.findDestroyedShip();
-                       checkNumberOfShips(1);
-                       turn = true;
+       int y = Integer.parseInt(event.getSource().toString().substring(10, 11)); //Position auf der Y-Achse
+       int x = Integer.parseInt(event.getSource().toString().substring(11, 12)); //Position auf der X-Achse
+        if(!player.getMap().map[y][x].isChecked()){
+             if(player.getMap().map[y][x].isShip() && !player.getMap().map[y][x].getHitted()){
+                  map[y][x].setHitted(true);
+                  player.findDestroyedShip();
 
-                  }else if(!player.getMap().map[y][x].getHitted()&&!player.getMap().map[y][x].isChecked()){
-                      map[y][x].setHitted(false);
-                       turn = false;
-                  }
-             } 
-       }
+             }else if(!player.getMap().map[y][x].getHitted()&&!player.getMap().map[y][x].isChecked()){
+                 map[y][x].setHitted(false);
+             }
+        } 
     }
     
     //Erstellt einen neuen Button
@@ -522,13 +499,13 @@ public class Map{
     //AttackSpiel-Button
     public void setMethodAttack(Player player, Field feld){
         //Felder bekommen automatisch eine Methode 
-        
         feld.getBtn().addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
         if(e.isPrimaryButtonDown()){  
           attack(e,player);
+        }else if(e.isSecondaryButtonDown()){
+          
         }
         }); // Setzt die ID des Buttons ein  
-        
    }
     
     
@@ -544,15 +521,6 @@ public class Map{
          }
          }); // Setzt die ID des Buttons ein  
     }
-    
-    public void checkNumberOfShips(int winner){
-        //Platform.setImplicitExit(false);
-        setNumberOfShips(getNumberOfShips() -1);
-        if(getNumberOfShips() == 0){ // If 0 = Computer has won
-            GameVScomputerController.winner = winner;
-            GameVScomputerController.winMessage(2);
-        }
-    } 
   
   
 

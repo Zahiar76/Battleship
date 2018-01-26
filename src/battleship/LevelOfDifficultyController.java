@@ -57,18 +57,7 @@ public class LevelOfDifficultyController implements Initializable {
     //
     @FXML
     private void startGame(ActionEvent event) throws IOException{
-        if(event.getSource().toString().contains("level1")){
-            manager.startGame(10.0);
-        }else if(event.getSource().toString().contains("level2")){
-            manager.startGame(20.0);
-        }else if(event.getSource().toString().contains("level3")){
-            manager.startGame(30.0);
-        }else if(event.getSource().toString().contains("level4")){
-            manager.startGame(40.0);
-        }else if(event.getSource().toString().contains("level5")){
-            manager.startGame(50.0);
-        }
- 
+        manager.startGame();
     }
  
     

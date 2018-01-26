@@ -37,18 +37,8 @@ public class GameVScomputerController implements Initializable {
     private Player player = new Player();
     private Player computer = new Player();
     private Computer computerLogic;
-    public static boolean playerTurn = false; 
+    private static boolean playerTurn = true; 
     private static Alert  alert = new Alert(AlertType.INFORMATION);
-    public static int winner;
-    private double probabilityToHit;
-
-    public double getProbabilityToHit() {
-        return probabilityToHit;
-    }
-
-    public void setProbabilityToHit(double probabilityToHit) {
-        this.probabilityToHit = probabilityToHit;
-    }
 
 
     
@@ -81,20 +71,20 @@ public class GameVScomputerController implements Initializable {
         //computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        playerMap.getChildren().clear();
        manager.getPlayer1().getMap().setMap(playerMap, playerVBox, playerHBox);
-       computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, computer);
+       computer.getMap().createMap(opponentMap, opponentVBox, opponentHBox,putShips, toSetLabels, player);
        computer.getMap().setShipsComputer(computer);
-       computerLogic =  new Computer(manager.getPlayer1(), computer);
+       computerLogic =  new Computer(manager.getPlayer1());
        computerLogic.setDaemon(true);
-       computerLogic.probabilityToHit = probabilityToHit;
+       computerLogic.probabilityToHit = 50.0;
         computerLogic.start();
         
-//       opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
-//         if(e.isPrimaryButtonDown()){ 
-//            if(playerTurn  == false){
-//                computerLogic.setAttack(true);
-//            }
-//         }
-//         });
+       opponentMap.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) ->{
+         if(e.isPrimaryButtonDown()){ 
+            playerTurn = false;
+            computerLogic.setAttack(true);
+
+         }
+         });
 
        
     }
@@ -111,8 +101,7 @@ public class GameVScomputerController implements Initializable {
             alert.setTitle("Info");
             alert.setHeaderText(null);
             alert.setContentText("Game over!");
-            alert.showAndWait();   
-           
+            alert.showAndWait();               
         }
     });
     }
