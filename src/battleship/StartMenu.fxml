@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.StartMenuController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.StartMenuController">
    <children>
       <VBox prefHeight="720.0" prefWidth="1004.0">
          <children>
@@ -19,36 +19,16 @@
             </ImageView>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="720.0" prefWidth="293.0">
+      <VBox alignment="TOP_CENTER" prefHeight="720.0" prefWidth="293.0" style="-fx-background-color: #001f3f;">
          <children>
-            <Button fx:id="btnComp" mnemonicParsing="false" onAction="#goToCreateShips" prefHeight="74.0" prefWidth="263.0" style="-fx-background-color: #DD1B1B;" text="Player vs Computer" textFill="WHITE">
+            <Button fx:id="btnComp" mnemonicParsing="false" onAction="#goToCreateShips" prefHeight="74.0" prefWidth="254.0" style="-fx-background-color: #FF4136; -fx-border-color: #39CCCC#39CCCC;" styleClass="buttons" stylesheets="@Style/style.css" text="Player vs Computer" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="10.0" top="120.0" />
                </VBox.margin>
                <font>
-                  <Font name="System Bold Italic" size="21.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="263.0" style="-fx-background-color: #DD1B1B;" text="Player vs Player" textFill="WHITE">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Bold Italic" size="21.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="263.0" style="-fx-background-color: #DD1B1B;" text="Options" textFill="WHITE">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Bold Italic" size="21.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="263.0" style="-fx-background-color: #DD1B1B;" text="Exit" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="21.0" />
-               </font></Button>
          </children>
       </VBox>
    </children>

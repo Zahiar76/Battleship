@@ -29,6 +29,17 @@
    -fx-font-weight: bold;
 }
 
+.buttons{
+   -fx-background-radius: 50px;
+   -fx-border-radius: 30px;
+   -fx-border-width: 3px;
+   -fx-background-color:  #FF4136;
+   -fx-border-color:  #39CCCC;
+   
+
+
+
+}
 .button:hover{
     
 }

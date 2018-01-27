@@ -8,9 +8,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.PutShipsController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.PutShipsController">
    <children>
       <AnchorPane id="backgroundPutShips" prefHeight="720.0" prefWidth="966.0" stylesheets="@Style/style.css">
          <children>
@@ -25,7 +26,7 @@
       </AnchorPane>
       <VBox alignment="BOTTOM_RIGHT" prefHeight="720.0" prefWidth="429.0" style="-fx-background-color: #2B2B2B;">
          <children>
-            <VBox alignment="CENTER" prefHeight="469.0" prefWidth="372.0" style="-fx-background-color: white;">
+            <VBox alignment="CENTER" prefHeight="469.0" prefWidth="372.0" style="-fx-background-color: #001f3f;">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
@@ -43,16 +44,19 @@
                         <Insets />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #DD1B1B;">
+                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #0074D9;">
                      <children>
-                        <Button fx:id="ship41" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="ship42" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="ship43" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="ship44" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="put4" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" style="-fx-p: 30;" stylesheets="@Style/style.css" text="PUT">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Button fx:id="put4" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" style="-fx-p: 30;" styleClass="buttons" stylesheets="@Style/style.css" text="PUT" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="160.0" />
+                              <Insets left="130.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
                      </children>
                      <VBox.margin>
@@ -69,15 +73,18 @@
                         <Label prefHeight="32.0" prefWidth="58.0" text="Ships" textFill="WHITE" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #DD1B1B;">
+                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #0074D9;">
                      <children>
-                        <Button fx:id="ship31" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="ship32" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="ship33" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="put3" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" stylesheets="@Style/style.css" text="PUT">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Button fx:id="put3" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" styleClass="buttons" stylesheets="@Style/style.css" text="PUT" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="192.0" />
+                              <Insets left="175.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
                      </children>
                      <VBox.margin>
@@ -94,14 +101,17 @@
                         <Label prefHeight="32.0" prefWidth="58.0" text="Ships" textFill="WHITE" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #DD1B1B;">
+                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #0074D9;">
                      <children>
-                        <Button fx:id="ship21" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="ship22" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="put2" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" stylesheets="@Style/style.css" text="PUT">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Button fx:id="put2" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" styleClass="buttons" stylesheets="@Style/style.css" text="PUT" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="230.0" />
+                              <Insets left="215.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
                      </children>
                      <VBox.margin>
@@ -118,19 +128,22 @@
                         <Label prefHeight="32.0" prefWidth="58.0" text="Ships" textFill="WHITE" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #DD1B1B;">
+                  <HBox prefHeight="32.0" prefWidth="307.0" style="-fx-background-color: #0074D9;">
                      <children>
-                        <Button fx:id="ship11" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" />
-                        <Button fx:id="put1" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" stylesheets="@Style/style.css" text="PUT">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd1b1b" height="35.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                        <Button fx:id="put1" mnemonicParsing="false" onAction="#selectShip" prefHeight="88.0" prefWidth="81.0" styleClass="buttons" stylesheets="@Style/style.css" text="PUT" textFill="WHITE">
                            <HBox.margin>
-                              <Insets left="260.0" />
+                              <Insets left="256.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="readyBtn" disable="true" mnemonicParsing="false" onAction="#goToLevel" prefHeight="74.0" prefWidth="375.0" style="-fx-background-color: #DD1B1B;" text="READY!" textFill="WHITE">
+            <Button fx:id="readyBtn" disable="true" mnemonicParsing="false" onAction="#goToLevel" prefHeight="74.0" prefWidth="375.0" styleClass="buttons" stylesheets="@Style/style.css" text="READY!" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -138,7 +151,7 @@
                   <Font name="System Bold Italic" size="21.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#goToMenu" prefHeight="74.0" prefWidth="375.0" style="-fx-background-color: #DD1B1B;" text="Back" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#goToMenu" prefHeight="74.0" prefWidth="375.0" styleClass="buttons" stylesheets="@Style/style.css" text="Back" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
