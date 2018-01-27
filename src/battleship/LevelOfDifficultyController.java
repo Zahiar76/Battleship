@@ -11,9 +11,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DialogPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -31,16 +33,22 @@ public class LevelOfDifficultyController implements Initializable {
     @FXML
     private VBox mainPane = new VBox();
     
+    @FXML
+    private DialogPane dialogPane = new DialogPane();
+    
+    @FXML
+    private StackPane stackPane = new StackPane();
+    
     //test
     
     @FXML
     private void showMenu(){
         
+        dialogPane.setDisable(false);
+        dialogPane.setVisible(true);
         mainPane.setDisable(true);
         mainPane.setOpacity(0.55);
-        
-        menuPane.setDisable(false);
-        menuPane.setVisible(true);
+
         
     }
     
@@ -49,8 +57,8 @@ public class LevelOfDifficultyController implements Initializable {
         mainPane.setOpacity(100);
         mainPane.setDisable(false);
         
-        menuPane.setVisible(false);
-        menuPane.setDisable(true);
+        dialogPane.setVisible(false);
+        dialogPane.setDisable(true);
         
     }
     
@@ -78,17 +86,17 @@ public class LevelOfDifficultyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mainPane.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+        stackPane.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
             if(KeyCode.ESCAPE == event.getCode()){
-                System.out.println("Works");
+                System.out.println("Works1");
                 showMenu();
            
             }
             
         });
-        menuPane.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+        dialogPane.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
             if(KeyCode.ESCAPE == event.getCode()){
-                System.out.println("Works");
+                System.out.println("Work2");
                 closeMenu();
            
             }
