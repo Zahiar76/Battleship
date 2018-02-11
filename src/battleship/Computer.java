@@ -45,9 +45,8 @@ public class Computer extends Thread{
             if(playerOpponent.getMap().isTurn() == false){
                 try {
                     tryToHit(player);
-                    TimeUnit.MILLISECONDS.sleep(500);
+                    TimeUnit.MILLISECONDS.sleep(750);
                     destroyShip(y, x);
-                    GameVScomputerController.playerTurn = true;
                
                } catch (InterruptedException ex) {
                    Logger.getLogger(Computer.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,7 +95,6 @@ public class Computer extends Thread{
             // System.out.println("probablitiy = "+ probability);
             position = findNotDestroyedShip(player,probability);
             // System.out.println("position is " + position);
-            System.out.println("IS postion empty = "+position);
             if(position.isEmpty()){
                 random = random(player, probability);
                 findShip(player, random);
@@ -137,7 +135,6 @@ public class Computer extends Thread{
                 for(Field xAxis : yAxis){
                     //System.out.println("xAxis.getIDShip() = "+xAxis.getShipID() +" shipID = "+ shipID);
                     if(xAxis.getShipID() == shipID){
-                        System.out.println("");
                        //destroyShip( xAxis.getY(), xAxis.getX());
                        y = xAxis.getY();
                        x = xAxis.getX();
@@ -197,24 +194,23 @@ public class Computer extends Thread{
         int randomNumber,y,x;
         ArrayList<Integer> list = new ArrayList();
         list = randomArray;
-         int position = 0;
-         System.out.println("SIZE = "+list.size());
-         System.out.println("Promission = "+promission);
+         int position;
         for(int index = list.size(); index > 0; index --){
             randomNumber = new Random().nextInt(index);
             y = getY(list.get(randomNumber));
             x = getX(list.get(randomNumber));
-            System.out.println("RandomNumber = "+randomNumber);
-            
                 if(player.getMap().map[y][x].isShip() && promission){
                     position = randomArray.get(new Integer(randomNumber));
-                    System.out.println("Position = "+position);
                      return position;
                 }else if(!player.getMap().map[y][x].isShip() && !promission && !player.getMap().map[y][x].getIsNeighbour()){
-                    position = randomArray.get(new Integer(randomNumber));;
-                    System.out.println("Position = "+position);
+                    position = randomArray.get(new Integer(randomNumber));
                     return position;
                 }
+            if(index == 1){
+                System.out.println("index is 0");
+                index = list.size();
+                promission = true;
+            }
         //maybe cannot find
         }
         System.out.println("error in Function \"Random\"");

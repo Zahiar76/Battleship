@@ -11,6 +11,7 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -154,7 +155,9 @@ public class Battleship extends Application {
         objektST = controller.getMe(); //Klasse bekannt machen
         
         this.sceneMenu = new Scene(root);
-        
+        this.stage.setTitle("Battleship");
+        Image icon = new Image(getClass().getResourceAsStream("Image/icon2.png"));
+        this.stage.getIcons().add(icon);
         this.stage.setScene(sceneMenu);
         this.stage.setResizable(false); // Benutzer kann die Grösse des Fensters nicht ändern
         this.stage.show();        

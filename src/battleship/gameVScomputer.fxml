@@ -6,70 +6,94 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.GameVScomputerController">
    <children>
-      <VBox fx:id="gamePane" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+      <StackPane prefHeight="720.0" prefWidth="1280.0">
          <children>
-            <Label alignment="CENTER" prefHeight="152.0" prefWidth="1280.0" style="-fx-background-color: #2B2B2B;" text="      Player      vs.   Computer " textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="84.0" />
-               </font>
-            </Label>
-            <AnchorPane id="backgroundPutShips" prefHeight="570.0" prefWidth="1289.0" stylesheets="@Style/style.css">
+            <VBox fx:id="gamePane" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                <children>
-                  <VBox fx:id="playerVBox" layoutX="120.0" layoutY="109.0" prefHeight="350.0" prefWidth="54.0" style="-fx-background-color: #2B2B2B;" />
-                  <HBox fx:id="playerHBox" layoutX="174.0" layoutY="55.0" prefHeight="54.0" prefWidth="350.0" style="-fx-background-color: #2B2B2B;" />
-                  <VBox fx:id="opponentVBox" layoutX="756.0" layoutY="109.0" prefHeight="350.0" prefWidth="54.0" style="-fx-background-color: #2B2B2B;" />
-                  <HBox fx:id="opponentHBox" layoutX="810.0" layoutY="55.0" prefHeight="54.0" prefWidth="350.0" style="-fx-background-color: #2B2B2B;" />
-                  <GridPane fx:id="opponentMap" layoutX="810.0" layoutY="109.0" prefHeight="350.0" prefWidth="350.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                  </GridPane>
-                  <Label alignment="CENTER" layoutX="174.0" layoutY="23.0" prefWidth="100.0" style="-fx-background-color: #001f3f;" text="You" textAlignment="CENTER" textFill="WHITE">
+                  <Label alignment="CENTER" prefHeight="152.0" prefWidth="1280.0" style="-fx-background-color: #2B2B2B;" text="      Player      vs.   Computer " textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font name="System Bold Italic" size="19.0" />
+                        <Font size="84.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="810.0" layoutY="23.0" prefWidth="100.0" style="-fx-background-color: #001f3f;" text="Computer" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="19.0" />
-                     </font>
-                  </Label>
-                  <GridPane fx:id="playerMap" layoutX="174.0" layoutY="109.0" prefHeight="350.0" prefWidth="350.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                  </GridPane>
-                  <Label alignment="CENTER" layoutX="271.0" layoutY="23.0" prefHeight="28.0" prefWidth="253.0" style="-fx-background-color: #001f3f;" text="You Turn" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="910.0" layoutY="23.0" prefHeight="28.0" prefWidth="253.0" style="-fx-background-color: #001f3f;" text="You Turn" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="19.0" />
-                     </font>
-                  </Label>
+                  <AnchorPane id="backgroundPutShips" fx:id="playingStage" prefHeight="570.0" prefWidth="1289.0" stylesheets="@Style/style.css">
+                     <children>
+                        <VBox fx:id="playerVBox" layoutX="120.0" layoutY="109.0" prefHeight="350.0" prefWidth="54.0" style="-fx-background-color: #2B2B2B;" />
+                        <HBox fx:id="playerHBox" layoutX="174.0" layoutY="55.0" prefHeight="54.0" prefWidth="350.0" style="-fx-background-color: #2B2B2B;" />
+                        <VBox fx:id="opponentVBox" layoutX="756.0" layoutY="109.0" prefHeight="350.0" prefWidth="54.0" style="-fx-background-color: #2B2B2B;" />
+                        <HBox fx:id="opponentHBox" layoutX="810.0" layoutY="55.0" prefHeight="54.0" prefWidth="350.0" style="-fx-background-color: #2B2B2B;" />
+                        <GridPane fx:id="opponentMap" layoutX="810.0" layoutY="109.0" prefHeight="350.0" prefWidth="350.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                        <Label alignment="CENTER" layoutX="174.0" layoutY="23.0" prefWidth="100.0" style="-fx-background-color: #001f3f;" text="Computer" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="810.0" layoutY="23.0" prefWidth="100.0" style="-fx-background-color: #001f3f;" text="You" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="19.0" />
+                           </font>
+                        </Label>
+                        <GridPane fx:id="playerMap" layoutX="174.0" layoutY="109.0" prefHeight="350.0" prefWidth="350.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                        <Rectangle fx:id="playerTurn" arcHeight="5.0" arcWidth="5.0" fill="#001f3f" height="28.0" layoutX="274.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+                        <Text fx:id="playerTurnText" fill="#001f3f" layoutX="274.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer turn" textAlignment="CENTER" wrappingWidth="249.99998092651367">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Text>
+                        <Rectangle fx:id="opponentTurn" arcHeight="5.0" arcWidth="5.0" fill="#001f3f" height="28.0" layoutX="910.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+                        <Text fx:id="opponentTurnText" fill="WHITE" layoutX="910.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Turn" textAlignment="CENTER" wrappingWidth="249.99998092651367">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <AnchorPane fx:id="winnerStage" disable="true" prefHeight="600.0" prefWidth="600.0" visible="false">
+               <children>
+                  <AnchorPane fx:id="winnerBox" layoutX="320.0" layoutY="180.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: #2B2B2B; -fx-border-width: 6; -fx-border-color: #001f3f;">
+                     <children>
+                        <Label fx:id="titleLabel" alignment="CENTER" layoutX="3.0" layoutY="-1.0" prefHeight="84.0" prefWidth="640.0" text="Congratulations" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="33.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="playAgainBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="479.0" layoutY="295.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="147.0" styleClass="buttons" stylesheets="@Style/style.css" text="Play again" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="21.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="backToMenuBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="295.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="51.0" prefWidth="168.0" styleClass="buttons" stylesheets="@Style/style.css" text="Back to Menu" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="21.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="winnerText" alignment="CENTER" layoutY="138.0" prefHeight="84.0" prefWidth="640.0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
-      </VBox>
-      <AnchorPane disable="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="720.0" prefWidth="1280.0" visible="false">
-         <children>
-            <VBox fx:id="menuPane" alignment="CENTER" disable="true" layoutX="3.0" prefHeight="720.0" prefWidth="1280.0">
-               <children>
-                  <Button fx:id="surrenderBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="74.0" prefWidth="375.0" style="-fx-background-color: #DD1B1B;" text="Surrender" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="21.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
+      </StackPane>
    </children>
 </AnchorPane>

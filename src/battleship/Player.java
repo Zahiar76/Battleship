@@ -225,7 +225,7 @@ public class Player {
        int whichShip = getWhichShip(y, x);
        
         if(whichShip != 0){
-            if(getShipsPosition2().get(whichShip).get(findFreePlaceInArray(whichShip)).size() == 0
+            if(getShipsPosition2().get(whichShip).get(findFreePlaceInArray(whichShip)).isEmpty()
                ||
                getShipsPosition2().get(whichShip).get(findFreePlaceInArray(whichShip)).size() % ((whichShip+1)) == 0){
                 return true;
@@ -242,7 +242,7 @@ public class Player {
    }
    
    public boolean showQuantityOfShips(int whichShip){
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<>();
         int number = findFreePlaceInArray(whichShip);
         int isOk = 0;
         for(int index = 0; index <= 3; index ++){
@@ -252,17 +252,13 @@ public class Player {
         }
         
         for(int index = 0; index < 3; index ++){
-            if(getShipsPosition2().get(list.get(index)).get(findFreePlaceInArray(index+1)).size() == 0
+            if(getShipsPosition2().get(list.get(index)).get(findFreePlaceInArray(index+1)).isEmpty()
                ||
               getShipsPosition2().get(list.get(index)).get(findFreePlaceInArray(index+1)).size() % ((list.get(index)+1)) == 0){
                 isOk++;
             }
         }
-        if(isOk == 3){
-            return true;
-        }
-        
-        return false;
+        return isOk == 3;
    }
    
    //By deleting
@@ -323,7 +319,7 @@ public class Player {
     public String setDestroyedField(String yx){
         int y,x;
         int size = yx.length();
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<>();
         int zero = -1;
         int one = 0;
         int count = 0;

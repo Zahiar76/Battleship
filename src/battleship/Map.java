@@ -550,7 +550,6 @@ public class Map{
         setNumberOfShips(getNumberOfShips() -1);
         if(getNumberOfShips() == 0){ // If 0 = Computer has won
             GameVScomputerController.winner = winner;
-            GameVScomputerController.winMessage(2);
         }
     } 
   
