@@ -42,7 +42,7 @@ public class Computer extends Thread{
         while(player.getMap().getNumberOfShips() > 0 && GameVScomputerController.winner == 0){
           synchronize();
  
-            if(playerOpponent.getMap().isTurn() == false){
+            if(playerOpponent.getMap().isTurn() == false || playerOpponent.getMap().isTurn() == true){
                 try {
                     tryToHit(player);
                     TimeUnit.MILLISECONDS.sleep(750);
@@ -195,10 +195,17 @@ public class Computer extends Thread{
         ArrayList<Integer> list = new ArrayList();
         list = randomArray;
          int position;
-        for(int index = list.size(); index > 0; index --){
+         int index = list.size();
+        while(index > 0){
+       // for(int index = list.size(); index > 0; index --){
             randomNumber = new Random().nextInt(index);
             y = getY(list.get(randomNumber));
             x = getX(list.get(randomNumber));
+            System.out.println("YX "+y+" "+x);
+            System.out.println("is ship "+ player.getMap().map[y][x].isShip());
+            System.out.println("is ship "+ player.getMap().map[y][x].isShip());
+            System.out.println("will hit  "+ promission);
+            System.out.println("size  "+ index);
                 if(player.getMap().map[y][x].isShip() && promission){
                     position = randomArray.get(new Integer(randomNumber));
                      return position;
@@ -206,11 +213,13 @@ public class Computer extends Thread{
                     position = randomArray.get(new Integer(randomNumber));
                     return position;
                 }
-            if(index == 1){
+            if(index < 2){
                 System.out.println("index is 0");
-                index = list.size();
+                index = list.size()+1;
+                System.out.println("index is now "+index);
                 promission = true;
             }
+            index--;
         //maybe cannot find
         }
         System.out.println("error in Function \"Random\"");
