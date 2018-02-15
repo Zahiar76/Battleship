@@ -42,7 +42,7 @@ public class Computer extends Thread{
         while(player.getMap().getNumberOfShips() > 0 && GameVScomputerController.winner == 0){
           synchronize();
  
-            if(playerOpponent.getMap().isTurn() == false || playerOpponent.getMap().isTurn() == true){
+            if(playerOpponent.getMap().isTurn() == false){
                 try {
                     tryToHit(player);
                     TimeUnit.MILLISECONDS.sleep(750);

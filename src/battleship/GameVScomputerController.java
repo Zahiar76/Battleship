@@ -7,6 +7,7 @@ package battleship;
 
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -139,10 +140,11 @@ public class GameVScomputerController implements Initializable {
         ft2.setCycleCount(Animation.INDEFINITE);
         ft2.setAutoReverse(true);
         ft2.setRate(8.0);
+        
         Thread turn = new Thread(){
             @Override
+           
             public synchronized void run(){
-
             while(winner==0){
               if(computer.getMap().isTurn()){
               ft.jumpTo(Duration.INDEFINITE);    
@@ -207,6 +209,11 @@ public class GameVScomputerController implements Initializable {
     @FXML
     private void goToMenu(ActionEvent event){
       manager.goToMenu();
+      
+    }
+    @FXML
+    private void playAgain(ActionEvent event) throws IOException{
+        manager.putShipsWindow();
     }
     
 
